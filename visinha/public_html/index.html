@@ -84,6 +84,7 @@
         <article>
             <h1>CSE 135</h1>
             <h2>Winter 2026</h2>
+            <h3>Live @ <span id="date"></span></h3>
         </article>
 
         <aside>
@@ -122,5 +123,9 @@
         <p>A simple page made for CSE 135</p>
     </footer>
 
+    <script>
+        const dateSpan = document.getElementById('date');
+        dateSpan.innerHTML = new Date().toLocaleString(); 
+    </script>
 </body>
 </html>
