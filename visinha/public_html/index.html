@@ -6,126 +6,148 @@
     <title>CSE 135 - Vijay S.</title>
     <style>
         body {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: sans-serif;
             color: #333;
-            max-width: 56.5rem;
-            margin: 2.5rem auto;
-            padding: 0 20px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        h1 { 
             margin: 0;
-            font-size: 2.5rem;
+            display: grid;
+            grid-template-columns: 18rem 1fr;
+            min-height: 100vh;
         }
-        h2 { 
-            margin: 5px 0 0 0;
-            font-weight: 400; 
-            color: #555;
-        }
-
         aside {
-            background-color: #f4f4f5;
-            padding: 20px;
-            border-radius: 6px;
+            background-color: #f9f9f9;
+            border-right: 1px solid #eee;
+            padding: 2rem;
         }
-
-        aside h3 { 
-            margin-top: 0; 
-            border-bottom: 1px solid #d4d4d8; 
-            padding-bottom: 0.6rem; 
-        }
-        aside p { 
-            font-style: italic; 
-            font-size: 0.9rem; 
-        }
-        aside ul { 
-            margin: 0; 
-            padding-left: 1rem;
-        }
-
-        section h3 {
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        section ul, section p {
-            background-color: #f4f4f5;
-            padding: 1rem 1.5rem;
-            border-radius: 4px;
+        h1 {
             margin: 0;
+            font-size: 2rem;
+            line-height: 1;
         }
-        
-        a { 
-            text-decoration: none; 
+        h2 {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            font-size: 1.1rem;
+            font-weight: normal;
+        }
+        time {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        aside section {
+            margin-top: 3rem;
+            border-top: 1px solid #ddd;
+            padding-top: 1.5rem;
+        }
+        aside h3 {
+            margin: 0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        aside p {
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        main {
+            padding: 3rem;
+            max-width: 60rem;
+        }
+        article {
+            margin-bottom: 4rem;
+        }
+        article h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(4, auto);
+            gap: 10px 40px;
+            width: fit-content;
+        }
+        li {
+            margin-bottom: 0.2rem;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: bold;
         }
         a:hover {
             text-decoration: underline;
         }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            padding: 1.5rem 0;
+        main p {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
         }
-        footer p {
-            font-size: 0.9rem;
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+            }
+            aside {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+            main {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <article>
+    <aside>
+        <header>
             <h1>CSE 135</h1>
             <h2>Winter 2026</h2>
-            <h3>Live @ <span id="date"></span></h3>
-        </article>
+            <time></time>
+        </header>
 
-        <aside>
+        <section>
             <h3>Team Vijay</h3>
-            <p>"A lone wolf taking on the master challenge of CSE 135"</p>
-            
-            <strong>Team Members</strong>
-            <ul>
-                <li><a href="/members/vijaysinha.html">Vijay Sinha</a></li>
-            </ul>
-        </aside>
-    </header>
+            <nav>
+                <ul>
+                    <li><a href="members/vijaysinha.html">Vijay Sinha</a></li>
+                </ul>
+            </nav>
+        </section>
+    </aside>
 
     <main>
-        <section>
+        <article>
             <h3>Homework 1</h3>
-            <ul>
-                <li><a href="#">PHP</a></li>
-                <li><a href="#">Node</a></li>
-                <li><a href="#">Analytics</a></li>
-            </ul>
-        </section>
+            <nav>
+                <ul>
+                    <li><a href="#">PHP Implementation</a></li>
+                    <li><a href="#">Node.js Implementation</a></li>
+                    <li><a href="#">Analytics Dashboard</a></li>
+                </ul>
+            </nav>
+        </article>
 
-        <section>
+        <article>
             <h3>Homework 2</h3>
-            <p>TBD</p>
-        </section>
+            <p>Coming Soon</p>
+        </article>
 
-        <section>
+        <article>
             <h3>Analytics App</h3>
             <p>TBD</p>
-        </section>
+        </article>
     </main>
 
-    <footer>
-        <p>A simple page made for CSE 135</p>
-    </footer>
-
     <script>
-        const dateSpan = document.getElementById('date');
-        dateSpan.innerHTML = new Date().toLocaleString(); 
+        document.querySelector('time').innerText = "Live: " + new Date().toLocaleDateString(); 
     </script>
+
 </body>
 </html>
