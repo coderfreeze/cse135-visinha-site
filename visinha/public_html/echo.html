@@ -51,130 +51,150 @@
             font-size: 0.85rem;
             margin-top: 5px;
         }
+        #greeting {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
         #jsForm {display: none;}
     </style>
 </head>
 <body>
+    
 
-<main>
-    <section>
-        <h2>Input</h2>
-        
-        <noscript>
-            <p>JavaScript is off. The PUT, DELETE request type and JSON encoding is disabled.</p>
+    <main>
+        <section>
+            <h2 id="greeting"></h2>
+            <h2>Input</h2>
             
-            <h2>POST</h2>
-            <form action="/cgi-bin/echo-python.py" method="POST">
+            <noscript>
+                <p>JavaScript is off. The PUT, DELETE request type and JSON encoding is disabled.</p>
+
+                <h2>POST</h2>
+                <form action="/cgi-bin/echo-python.py" method="POST">
+                    <label>Message
+                        <input type="text" name="message" placeholder="Enter a Message">
+                    </label>
+                    <div style="margin-bottom: 15px;">
+                        <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
+                        <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
+                        <button type="submit" formaction="/node/echo-node">Node.js</button>
+                    </div>
+                </form>
+
+                <h2>GET</h2>
+                <form action="/cgi-bin/echo-python.py" method="GET">
+                    <label>Message
+                        <input type="text" name="message" placeholder="Enter a Message">
+                    </label>
+                    <div style="margin-bottom: 15px;">
+                        <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
+                        <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
+                        <button type="submit" formaction="/node/echo-node">Node.js</button>
+                    </div>
+                </form>
+            </noscript>
+            
+            <form id="jsForm" action="/cgi-bin/echo-python.py" method="POST">
+                <label>Language
+                    <select id="lang">
+                        <option value="python">Python</option>
+                        <option value="cpp">C++</option>
+                        <option value="node">Node.js</option>
+                    </select>
+                </label>
+
+                <label>Method
+                    <select id="method">
+                        <option value="GET">GET</option>
+                        <option value="POST" selected>POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                    </select>
+                </label>
+
+                <label>Encoding
+                    <select id="encoding">
+                        <option value="application/x-www-form-urlencoded">x-www-form-urlencoded</option>
+                        <option value="application/json">application/json</option>
+                    </select>
+                </label>
+
                 <label>Message
                     <input type="text" name="message" placeholder="Enter a Message">
                 </label>
-                <div style="margin-bottom: 15px;">
-                    <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
-                    <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
-                    <button type="submit" formaction="/node/echo-node">Node.js</button>
-                </div>
+
+                <button type="submit">Submit</button>
             </form>
+        </section>
 
-            <h2>GET</h2>
-            <form action="/cgi-bin/echo-python.py" method="GET">
-                <label>Message
-                    <input type="text" name="message" placeholder="Enter a Message">
-                </label>
-                <div style="margin-bottom: 15px;">
-                    <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
-                    <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
-                    <button type="submit" formaction="/node/echo-node">Node.js</button>
-                </div>
-            </form>
-        </noscript>
-        
-        <form id="jsForm" action="/cgi-bin/echo-python.py" method="POST">
-            <label>Language
-                <select id="lang">
-                    <option value="python">Python</option>
-                    <option value="cpp">C++</option>
-                    <option value="node">Node.js</option>
-                </select>
-            </label>
+        <section>
+            <h2>Response</h2>
+            <strong>Server Data:</strong>
+            <output>--</output>
+        </section>
+    </main>
 
-            <label>Method
-                <select id="method">
-                    <option value="GET">GET</option>
-                    <option value="POST" selected>POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="DELETE">DELETE</option>
-                </select>
-            </label>
+    <script>
+        document.getElementById('jsForm').style.display = 'block';
 
-            <label>Encoding
-                <select id="encoding">
-                    <option value="application/x-www-form-urlencoded">x-www-form-urlencoded</option>
-                    <option value="application/json">application/json</option>
-                </select>
-            </label>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
 
-            <label>Message
-                <input type="text" name="message" placeholder="Enter a Message">
-            </label>
+        const user = getCookie("my_cookie");
+        if (user) {
+            const el = document.getElementById("greeting");
+            el.textContent = `Hello, ${user}!`;
+        }
 
-            <button type="submit">Submit</button>
-        </form>
-    </section>
+        const endpoints = {
+            'python': '/cgi-bin/echo-python.py',
+            'cpp': '/cgi-bin/echo-cpp',
+            'node': '/node/echo-node' 
+        };
 
-    <section>
-        <h2>Response</h2>
-        <strong>Server Data:</strong>
-        <output>--</output>
-    </section>
-</main>
+        const form = document.getElementById('jsForm');
+        const outData = document.querySelector('output');
 
-<script>
-    document.getElementById('jsForm').style.display = 'block';
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
 
-    const endpoints = {
-        'python': '/cgi-bin/echo-python.py',
-        'cpp': '/cgi-bin/echo-cpp',
-        'node': '/node/echo-node' 
-    };
+            outData.textContent = "Loading...";
 
-    const form = document.getElementById('jsForm');
-    const outData = document.querySelector('output');
+            const lang = document.getElementById('lang').value;
+            const method = document.getElementById('method').value;
+            const enc = document.getElementById('encoding').value;
+            const formData = new FormData(form);
+            const payload = Object.fromEntries(formData.entries());
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
+            let url = endpoints[lang];
+            let options = { method: method, headers: {} };
 
-        outData.textContent = "Loading...";
-
-        const lang = document.getElementById('lang').value;
-        const method = document.getElementById('method').value;
-        const enc = document.getElementById('encoding').value;
-        const formData = new FormData(form);
-        const payload = Object.fromEntries(formData.entries());
-
-        let url = endpoints[lang];
-        let options = { method: method, headers: {} };
-
-        if (method === 'GET' || method === 'DELETE') {
-            url += '?' + new URLSearchParams(payload).toString();
-        } else {
-            if (enc === 'application/json') {
-                options.headers['Content-Type'] = 'application/json';
-                options.body = JSON.stringify(payload);
+            if (method === 'GET' || method === 'DELETE') {
+                url += '?' + new URLSearchParams(payload).toString();
             } else {
-                options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-                options.body = new URLSearchParams(payload);
+                if (enc === 'application/json') {
+                    options.headers['Content-Type'] = 'application/json';
+                    options.body = JSON.stringify(payload);
+                } else {
+                    options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+                    options.body = new URLSearchParams(payload);
+                }
             }
-        }
 
-        try {
-            const res = await fetch(url, options);
-            const text = await res.text();
-            outData.textContent = text;
-        } catch (err) {
-            outData.textContent = "Error: " + err;
-        }
-    });
-</script>
+            try {
+                const res = await fetch(url, options);
+                const text = await res.text();
+                outData.textContent = text;
+            } catch (err) {
+                outData.textContent = "Error: " + err;
+            }
+        });
+    </script>
 
 </body>
 </html>
