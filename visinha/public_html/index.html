@@ -53,7 +53,7 @@
         }
         main {
             padding: 3rem;
-            max-width: 60rem;
+            max-width: 65rem;
         }
         article {
             margin-bottom: 4rem;
@@ -102,6 +102,27 @@
             }
         }
     </style>
+
+    <script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous"></script>
+    <script>window.LogRocket && window.LogRocket.init('zlial1/visinhasite');</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FSCYF55GMP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-FSCYF55GMP');
+    </script>
+
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "va25p8z9hs");
+</script>
 </head>
 <body>
 
@@ -127,16 +148,25 @@
             <h3>Homework 1</h3>
             <nav>
                 <ul>
-                    <li><a href="#">PHP Implementation</a></li>
-                    <li><a href="#">Node.js Implementation</a></li>
-                    <li><a href="#">Analytics Dashboard</a></li>
+                    <li><a href="report.html">Analytics Dashboard</a></li>
                 </ul>
             </nav>
         </article>
 
         <article>
             <h3>Homework 2</h3>
-            <p>Coming Soon</p>
+            <nav>
+                <ul id="hw2">
+                    <li><a href="/cgi-bin/perl-hello-html-world.pl">Hello Perl</a></li>
+                    <li><a href="/cgi-bin/perl-hello-json-world.pl">Hello Perl (JSON)</a></li>
+                    <li><a href="/cgi-bin/perl-env-pm.pl">Perl Env Variables (CGI pm)</a></li>
+                    <li><a href="/cgi-bin/perl-env.pl">Perl Env Variables (Man)</a></li>
+                    <li><a href="/cgi-bin/perl-general-echo.pl">Perl General Echo</a></li>
+                    <li><a href="/cgi-bin/perl-get-echo.pl">Perl Get Echo</a></li>
+                    <li><a href="/cgi-bin/perl-post-echo.pl">Perl Post Echo</a></li>
+                    <li><a href="echo.html">Echo Form Page</a></li>
+                </ul>
+            </nav>
         </article>
 
         <article>
@@ -146,7 +176,23 @@
     </main>
 
     <script>
-        document.querySelector('time').innerText = "Live: " + new Date().toLocaleDateString(); 
+        document.querySelector('time').innerText = "Live: " + new Date().toLocaleDateString();
+        
+        const list = document.getElementById('hw2');
+        const languages = [
+            { name: 'Python', path: '/cgi-bin/', suffix: '-python.py' },
+            { name: 'C++', path: '/cgi-bin/', suffix: '-cpp' },
+            { name: 'Node.js', path: '/node/', suffix: '-node' }
+        ];
+        languages.forEach(lang => {
+            list.innerHTML += `
+                <li><a href="${lang.path}hello-html${lang.suffix}">Hello ${lang.name}</a></li>
+                <li><a href="${lang.path}hello-json${lang.suffix}">Hello ${lang.name} (JSON)</a></li>
+                <li><a href="${lang.path}environment${lang.suffix}">${lang.name} Env Variables</a></li>
+                <li><a href="${lang.path}echo${lang.suffix}">${lang.name} Echo</a></li>
+                <li><a href="${lang.path}state${lang.suffix}">${lang.name} State</a></li>
+            `;
+        });
     </script>
 
 </body>
