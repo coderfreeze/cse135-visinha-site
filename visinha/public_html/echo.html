@@ -46,12 +46,12 @@
         }
         output { 
             display: block; 
-            font-family: monospace; 
             padding: 10px; 
             white-space: pre-wrap; 
             font-size: 0.85rem;
             margin-top: 5px;
         }
+        #jsForm {display: none;}
     </style>
 </head>
 <body>
@@ -60,7 +60,35 @@
     <section>
         <h2>Input</h2>
         
-        <form id="echoForm" action="/cgi-bin/echo-python.py" method="POST">
+        <noscript>
+            <p>JavaScript is off. The PUT, DELETE request type and JSON encoding is disabled.</p>
+            
+            <h2>POST</h2>
+            <form action="/cgi-bin/echo-python.py" method="POST">
+                <label>Message
+                    <input type="text" name="message" placeholder="Enter a Message">
+                </label>
+                <div style="margin-bottom: 15px;">
+                    <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
+                    <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
+                    <button type="submit" formaction="/node/echo-node">Node.js</button>
+                </div>
+            </form>
+
+            <h2>GET</h2>
+            <form action="/cgi-bin/echo-python.py" method="GET">
+                <label>Message
+                    <input type="text" name="message" placeholder="Enter a Message">
+                </label>
+                <div style="margin-bottom: 15px;">
+                    <button type="submit" formaction="/cgi-bin/echo-python.py">Python</button>
+                    <button type="submit" formaction="/cgi-bin/echo-cpp">C++</button>
+                    <button type="submit" formaction="/node/echo-node">Node.js</button>
+                </div>
+            </form>
+        </noscript>
+        
+        <form id="jsForm" action="/cgi-bin/echo-python.py" method="POST">
             <label>Language
                 <select id="lang">
                     <option value="python">Python</option>
@@ -101,13 +129,15 @@
 </main>
 
 <script>
+    document.getElementById('jsForm').style.display = 'block';
+
     const endpoints = {
         'python': '/cgi-bin/echo-python.py',
         'cpp': '/cgi-bin/echo-cpp',
         'node': '/node/echo-node' 
     };
 
-    const form = document.getElementById('echoForm');
+    const form = document.getElementById('jsForm');
     const outData = document.querySelector('output');
 
     form.addEventListener('submit', async (e) => {
